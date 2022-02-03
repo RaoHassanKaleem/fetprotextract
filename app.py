@@ -49,7 +49,7 @@ if st.sidebar.button("SUBMIT"):
     st.info("Computing Features...")
     i = 0
     for _ in stqdm(range(len(seqs))):
-        allFVs.append(fe.calcFV(seqs[i]))
+        allFVs.append(fe.calcFV(seqs[i]).upper())
         i+=1
     
     if len(allFVs)!=0:
