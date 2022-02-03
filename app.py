@@ -12,7 +12,7 @@ icon = Image.open('fav.png')
 st.set_page_config(page_title='Feature Extraction App - Proteins', page_icon = icon)
 
 def seqValidator(seq):
-    allowed_chars = set('ACDEFGHIKLMNPQRSTVWXY')
+    allowed_chars = set('ACDEFGHIKLMNPQRSTVWXYacdefghiklmnpqrstvwxy')
     if set(seq).issubset(allowed_chars):
         return True
     return False
@@ -52,9 +52,10 @@ if st.sidebar.button("SUBMIT"):
         allFVs.append(fe.calcFV(seqs[i]))
         i+=1
     
-    myDf = pd.DataFrame(allFVs)
-    myCSV = myDf.to_csv(index=False, header=None).encode('utf-8')
-    st.download_button(label="Download Data as CSV", data=myCSV, file_name='FVs.csv', mime='text/csv')
+    if len(allFVs)!=0:
+        myDf = pd.DataFrame(allFVs)
+        myCSV = myDf.to_csv(index=False, header=None).encode('utf-8')
+        st.download_button(label="Download Data as CSV", data=myCSV, file_name='FVs.csv', mime='text/csv')
     if len(excluded)!=0:
         st.info("Follwoing are the IDs of excluded sequences containing invalid characters")
         st.write(excluded)
